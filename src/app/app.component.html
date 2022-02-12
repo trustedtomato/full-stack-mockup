@@ -3,7 +3,7 @@
   <nav>
     <ul>
       <li *ngFor="let route of routes">
-        <a href="{{ route.path }}">
+        <a routerLink="{{ route.path }}">
           {{ route.data?.['title'] }}
         </a>
       </li>
