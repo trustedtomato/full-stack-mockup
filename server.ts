@@ -3,10 +3,11 @@ import 'zone.js/dist/zone-node';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 import { join } from 'path';
-
-import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
+import fetch from 'node-fetch';
+import { AppServerModule } from './src/main.server';
+import { createDeepPartial } from './src/utils/create-deep-partial'
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -22,12 +23,25 @@ export function app(): express.Express {
   server.set('view engine', 'html');
   server.set('views', distFolder);
 
-  // Example Express Rest API endpoints
-  // server.get('/api/**', (req, res) => { });
-  // Serve static files from /browser
-  server.get('*.*', express.static(distFolder, {
-    maxAge: '1y'
-  }));
+  // REST API endpoints
+  server.get('/api/users.json', async (req, res) => {
+    const users: any = await fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response => response.json())
+
+    // We are filtering the results to
+    // save bandwidth and to make sure
+    // we are not leaking sensitive details.
+    const filteredUsers = createDeepPartial(users, [{
+      name: true,
+      username: true,
+      email: true,
+      company: {
+        name: true
+      }
+    }])
+
+    res.send(filteredUsers)
+  });
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
