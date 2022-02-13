@@ -9,6 +9,8 @@ import fetch from 'node-fetch';
 import { AppServerModule } from './src/main.server';
 import { createDeepPartial } from './src/utils/create-deep-partial'
 
+const photoApiFields = ['id', 'title', 'thumbnailUrl']
+
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
@@ -24,23 +26,52 @@ export function app(): express.Express {
   server.set('views', distFolder);
 
   // REST API endpoints
-  server.get('/api/users.json', async (req, res) => {
-    const users: any = await fetch('https://jsonplaceholder.typicode.com/users')
+  server.get('/api/photos', async (req, res, next) => {
+    let {
+      start = 0,
+      limit = 10,
+      sort = 'id'
+    } = req.query
+
+    // Only accept the last query paramter of the same type
+    if (Array.isArray(start)) start = start[start.length - 1]
+    if (Array.isArray(limit)) limit = limit[limit.length - 1]
+    if (Array.isArray(sort)) sort = sort[sort.length - 1]
+
+    // Convert query parameters to the expected types
+    start = parseInt(String(start))
+    limit = parseInt(String(limit))
+    sort = String(sort)
+
+    // Throw error when a query parameter is invalid
+    if (Number.isNaN(start)) {
+      return next(new Error('The start query parameter is invalid!'))
+    }
+    if (Number.isNaN(limit)) {
+      return next(new Error('The limit query parameter is invalid!'))
+    }
+    if (limit < 1 || limit > 100) {
+      return next(new Error('The limit query parameter must be between 1 and 100!'))
+    }
+    // Only enable sorting on public fields
+    // to make sure we are not leaking sensitive details.
+    if (!photoApiFields.includes(sort)) {
+      return next(new Error(`The sort query parameter must be one of the following: ${JSON.stringify(photoApiFields)}`))
+    }
+
+    const photos: any = await fetch(`https://jsonplaceholder.typicode.com/photos?_start=${start}&_limit=${limit}&_sort=${sort}`)
       .then(response => response.json())
 
     // We are filtering the results to
     // save bandwidth and to make sure
     // we are not leaking sensitive details.
-    const filteredUsers = createDeepPartial(users, [{
-      name: true,
-      username: true,
-      email: true,
-      company: {
-        name: true
-      }
-    }])
+    const filteredPhotos = createDeepPartial(photos, [
+      Object.fromEntries(
+        photoApiFields.map(field => [field, true])
+      )
+    ])
 
-    res.send(filteredUsers)
+    res.send(filteredPhotos)
   });
 
   // Serve static files from /browser
