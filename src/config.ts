@@ -1,1 +1,1 @@
-export const name = 'Imaginary Government'
+export const name = 'Photo Gallery'

@@ -5,13 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { HomeComponent } from './home/home.component';
-import { CitizensComponent } from './citizens/citizens.component';
+import { PhotosComponent } from './photos/photos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    CitizensComponent
+    PhotosComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

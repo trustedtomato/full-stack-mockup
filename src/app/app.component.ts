@@ -11,6 +11,7 @@ import { name } from '../config'
 })
 export class AppComponent {
   routes = routes
+  appName = name
 
   constructor (
     private router: Router,
