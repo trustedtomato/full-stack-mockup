@@ -12,12 +12,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { reducer as photoReducer } from './photos/photo.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { PaginatorComponent } from './paginator/paginator.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    PhotosComponent
+    PhotosComponent,
+    PaginatorComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

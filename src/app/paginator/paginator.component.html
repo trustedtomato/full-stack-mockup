@@ -1,0 +1,14 @@
+<ul>
+  <li><button><<</button></li>
+  <li><button><</button></li>
+  <li
+    *ngFor="let button of buttons"
+    (click)="navigateTo.emit(button)"
+  >
+    <button>
+      {{ button }}
+    </button>
+  </li>
+  <li><button>></button></li>
+  <li><button>>></button></li>
+</ul>
