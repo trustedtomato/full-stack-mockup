@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { loadPhotos } from './photo.actions';
 
 @Component({
   selector: 'app-photos',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PhotosComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store: Store) { }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
+    this.store.dispatch(loadPhotos())
   }
 
 }

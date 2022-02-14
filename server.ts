@@ -59,6 +59,8 @@ export function app(): express.Express {
       return next(new Error(`The sort query parameter must be one of the following: ${JSON.stringify(photoApiFields)}`))
     }
 
+    console.log('hello')
+
     const photos: any = await fetch(`https://jsonplaceholder.typicode.com/photos?_start=${start}&_limit=${limit}&_sort=${sort}`)
       .then(response => response.json())
 
