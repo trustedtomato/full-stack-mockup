@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let photo of photos$ | async">
+      <tr *ngFor="let photo of displayedPhotos$ | async">
         <td>
           <img width="50" height="50" src="{{ photo.thumbnailUrl }}" alt="{{ photo.title }}">
         </td>

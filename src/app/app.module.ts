@@ -29,8 +29,7 @@ import { feature as photoPaginationFeature } from './definitions/photo-paginatio
     StoreModule.forRoot({}),
     StoreModule.forFeature(photoFeature),
     StoreModule.forFeature(photoPaginationFeature),
-    EffectsModule.forRoot([]),
-    EffectsModule.forFeature([PhotoEffects]),
+    EffectsModule.forRoot([PhotoEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [
