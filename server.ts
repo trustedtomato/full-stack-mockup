@@ -59,10 +59,8 @@ export function app(): express.Express {
       return next(new Error(`The sort query parameter must be one of the following: ${JSON.stringify(photoApiFields)}`))
     }
 
-    console.log('hello')
-
-    const photos: any = await fetch(`https://jsonplaceholder.typicode.com/photos?_start=${start}&_limit=${limit}&_sort=${sort}`)
-      .then(response => response.json())
+    const photosResp = await fetch(`https://jsonplaceholder.typicode.com/photos?_start=${start}&_limit=${limit}&_sort=${sort}`)
+    const photos = await photosResp.json()
 
     // We are filtering the results to
     // save bandwidth and to make sure
@@ -72,6 +70,12 @@ export function app(): express.Express {
         photoApiFields.map(field => [field, true])
       )
     ])
+
+    // Forward the X-Total-Count header,
+    // which can then be used for pagination
+    if (photosResp.headers.has('X-Total-Count')) {
+      res.setHeader('X-Total-Count', photosResp.headers.get('X-Total-Count')!!)
+    }
 
     res.send(filteredPhotos)
   });

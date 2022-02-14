@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, concatMap } from 'rxjs/operators';
-import { Observable, EMPTY, of } from 'rxjs';
+import { Observable, EMPTY, of, mergeMap } from 'rxjs';
 
 import * as PhotoActions from './photo.actions';
 import { HttpClient } from '@angular/common/http';
@@ -14,9 +14,13 @@ export class PhotoEffects {
 
       ofType(PhotoActions.loadPhotos),
       concatMap(() =>
-        /** An EMPTY observable only emits completion. Replace with your own observable API request */
-        this.http.get('api/photos').pipe(
-          map((photos: any) => PhotoActions.addPhotos({ photos })),
+        this.http.get('api/photos', {
+          observe: 'response'
+        }).pipe(
+          mergeMap((resp) => of(
+            PhotoActions.addPhotos({ photos: resp.body as any }),
+            PhotoActions.updatePhotosTotalCount({ count: parseInt(resp.headers.get('X-Total-Count')!!) })
+          )),
           catchError(error => of(PhotoActions.loadPhotosFailure({ error }))))
       )
     );

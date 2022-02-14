@@ -7,12 +7,14 @@ export const photoFeatureKey = 'photo';
 
 export interface State extends EntityState<Photo> {
   // additional entities state properties
+  totalCount: number
 }
 
 export const adapter: EntityAdapter<Photo> = createEntityAdapter<Photo>();
 
 export const initialState: State = adapter.getInitialState({
   // additional entity state properties
+  totalCount: 0
 });
 
 export const reducer = createReducer(
@@ -50,6 +52,9 @@ export const reducer = createReducer(
   on(PhotoActions.clearPhotos,
     state => adapter.removeAll(state)
   ),
+  on(PhotoActions.updatePhotosTotalCount,
+    (state, action) => ({...state, totalCount: action.count})
+  )
 );
 
 export const {

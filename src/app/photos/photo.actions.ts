@@ -59,3 +59,8 @@ export const deletePhotos = createAction(
 export const clearPhotos = createAction(
   '[Photo/API] Clear Photos'
 );
+
+export const updatePhotosTotalCount = createAction(
+  '[Photo/API] Update Photos Total Count',
+  props<{ count: number }>()
+);
