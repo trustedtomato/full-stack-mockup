@@ -53,5 +53,11 @@ export class PaginatorComponent implements OnInit {
     return Array.from({ length: max - min + 1 }, (_, index) => min + index)
   }
 
+  get noNextPage () {
+    return this.currentPageNumber >= this.maxPageNumber
+  }
 
+  get noPreviousPage () {
+    return this.currentPageNumber <= 1
+  }
 }

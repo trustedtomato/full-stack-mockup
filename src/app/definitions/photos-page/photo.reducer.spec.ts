@@ -1,11 +1,11 @@
-import { reducer, initialState } from './photo.reducer';
+import { feature, initialState } from './photo.reducer';
 
 describe('Photo Reducer', () => {
   describe('an unknown action', () => {
     it('should return the previous state', () => {
       const action = {} as any;
 
-      const result = reducer(initialState, action);
+      const result = feature.reducer(initialState, action);
 
       expect(result).toBe(initialState);
     });
