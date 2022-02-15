@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { routes } from './app-routing.module'
-import { name } from '../config'
+import { name } from './config';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +9,6 @@ import { name } from '../config'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  routes = routes
-  appName = name
 
   constructor (
     private router: Router,

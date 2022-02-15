@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { updateCurrentPageNumber } from '../photo-pagination/photo-pagination.actions';
+import { updateCurrentPageNumber, updateLimit } from '../photo-pagination/photo-pagination.actions';
 import { feature as photoPaginationFeature } from '../photo-pagination/photo-pagination.reducer';
 import { selectDisplayedPhotos, selectMaxPageNumber } from '../photo-pagination/photo-pagination.selectors';
 import { loadPhotos } from './photo.actions';
@@ -12,21 +12,21 @@ import { loadPhotos } from './photo.actions';
 })
 export class PhotosComponent implements OnInit {
 
-  displayedPhotos$ = this.store.pipe(
-    select(selectDisplayedPhotos)
-  )
-
-  maxPageNumber$ = this.store.pipe(
-    select(selectMaxPageNumber)
-  )
-
-  currentPageNumber$ = this.store.pipe(
-    select(photoPaginationFeature.selectCurrentPageNumber)
-  )
+  displayedPhotos$ = this.store.select(selectDisplayedPhotos)
+  maxPageNumber$ = this.store.select(selectMaxPageNumber)
+  currentPageNumber$ = this.store.select(photoPaginationFeature.selectCurrentPageNumber)
+  limit$ = this.store.select(photoPaginationFeature.selectLimit)
+  possibleLimits$ = this.store.select(photoPaginationFeature.selectPossibleLimits)
 
   navigateTo (newPageNumber: number) {
     this.store.dispatch(updateCurrentPageNumber({
       newPageNumber
+    }))
+  }
+
+  updateLimit (newLimit: number) {
+    this.store.dispatch(updateLimit({
+      newLimit
     }))
   }
   

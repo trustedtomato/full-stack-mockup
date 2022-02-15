@@ -13,14 +13,16 @@ import { feature as photoFeature } from './definitions/photos-page/photo.reducer
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { PaginatorComponent } from './definitions/paginator/paginator.component';
-import { feature as photoPaginationFeature } from './definitions/photo-pagination/photo-pagination.reducer'
+import { feature as photoPaginationFeature } from './definitions/photo-pagination/photo-pagination.reducer';
+import { MainHeaderComponent } from './definitions/main-header/main-header.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     PhotosComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    MainHeaderComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

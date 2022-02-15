@@ -1,0 +1,44 @@
+header {
+  position: relative;
+  background-color: #ddd;
+  padding: 1rem 2rem 1rem 2rem;
+}
+
+/* There would be a white gap on the left of the header
+   because of the scrollbar fix, so that gap must be filled.
+*/
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: calc(-1 * var(--scrollbar-width));
+  width: var(--scrollbar-width);
+  height: 100%;
+  background: #ddd;
+}
+
+h1 {
+  margin: 1rem auto;
+  max-width: var(--max-width);
+  /* for baseline grid */
+  padding: .3rem 0 .7rem 0;
+  font-size: 3rem;
+  line-height: 3rem;
+}
+
+ul {
+  margin: 0rem auto;
+  display: flex;
+  max-width: var(--max-width);
+  /* for baseline grid */
+  padding: .3rem 0 .7rem 0;
+  line-height: 2rem;
+}
+
+li {
+  list-style: none;
+}
+
+li:not(:first-child) {
+  margin-left: 1rem;
+}

@@ -1,14 +1,3 @@
-<header>
-  <h1>{{ appName }}</h1>
-  <nav>
-    <ul>
-      <li *ngFor="let route of routes">
-        <a routerLink="{{ route.path }}">
-          {{ route.data?.['title'] }}
-        </a>
-      </li>
-    </ul>
-  </nav>
-</header>
+<app-main-header></app-main-header>
 
 <router-outlet></router-outlet>

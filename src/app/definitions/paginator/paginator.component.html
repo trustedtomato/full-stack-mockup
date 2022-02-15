@@ -1,13 +1,14 @@
-<ul>
+<ul class="main-list">
   <li><button [disabled]="noPreviousPage" (click)="navigateTo.emit(1)"><<</button></li>
   <li><button [disabled]="noPreviousPage" (click)="navigateTo.emit(currentPageNumber - 1)"><</button></li>
-  <li
-    *ngFor="let button of buttons"
-    (click)="navigateTo.emit(button)"
-  >
-    <button>
-      {{ button }}
-    </button>
+  <li>
+    <ul class="page-numbers">
+      <li *ngFor="let button of buttons" [class.current]="button === currentPageNumber">
+        <button [attr.aria-label]="'go to page ' + button" (click)="navigateTo.emit(button)">
+          {{ button }}
+        </button>
+      </li>
+    </ul>
   </li>
   <li><button [disabled]="noNextPage" (click)="navigateTo.emit(currentPageNumber + 1)">></button></li>
   <li><button [disabled]="noNextPage" (click)="navigateTo.emit(maxPageNumber)">>></button></li>

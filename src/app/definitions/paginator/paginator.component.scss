@@ -1,0 +1,59 @@
+
+ul {
+  display: flex;
+  margin: 0;
+  justify-content: center;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.main-list {
+  margin: 1rem 0;
+}
+
+.main-list > li {
+  margin: 0 .25rem;
+}
+
+
+@media screen and (min-width: 491px) {
+  .page-numbers li.current button {
+    text-decoration: underline;
+    font-weight: bold;
+  }
+}
+
+@media screen and (max-width: 490px) {
+  .page-numbers li:not(.current) {
+    display: none;
+  }
+}
+
+button {
+  border: 1px solid #bbb;
+  border-radius: .5rem;
+  cursor: pointer;
+}
+
+button {
+  padding: 0;
+  background: #ddd;
+  width: 4rem;
+  height: 4rem;
+}
+
+button:not([disabled]):hover {
+  background: #ccc;
+}
+
+button:not([disabled]):active {
+  background: #bbb;
+}
+
+button:focus {
+  position: relative;
+  z-index: 1;     
+}

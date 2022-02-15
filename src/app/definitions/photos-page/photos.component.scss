@@ -1,0 +1,46 @@
+main {
+  max-width: calc(var(--max-width) + 10rem * 2);
+  margin: auto;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  border-spacing:0;
+  border-collapse: collapse;
+  line-height: 2.5rem;
+}
+
+tr {
+  border: 1px solid #ddd;
+}
+
+table th:nth-child(1) {
+  width: 10rem;
+}
+
+table img {
+  width: 10rem;
+  height: 10rem;
+  display: block;
+}
+
+td {
+  padding: 0;
+  vertical-align: top;
+}
+
+td span {
+  display: block;
+  max-height: 10rem;
+  overflow-wrap: break-word;
+  overflow: hidden;
+}
+
+table th:nth-child(2) {
+  width: 5rem;
+}
+
+table td:not(:nth-child(1)) {
+  padding: 0 .5rem;
+}
